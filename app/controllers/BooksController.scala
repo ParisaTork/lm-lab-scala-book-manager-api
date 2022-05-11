@@ -40,4 +40,12 @@ class BooksController @Inject()(val controllerComponents: ControllerComponents, 
 
 
   }
+
+  def deleteBook(bookId: Long) : Action[AnyContent] = Action {
+    var bookToDelete: Book = null
+    dataRepository.deleteBook(bookId) foreach { book =>
+      bookToDelete = book
+    }
+    Ok(Json.toJson(bookToDelete))
+  }
 }
