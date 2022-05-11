@@ -29,7 +29,7 @@ class BookRepository {
 
   def addBook(book: Book): Option[Book] = {
     // If book already exists then return none
-    if(bookList.exists(b => b.id == book.id)) {
+    if (bookList.exists(b => b.id == book.id)) {
       None
     }
     else {
@@ -40,4 +40,7 @@ class BookRepository {
     }
   }
 
+  def deleteBook(bookId: Long): Option[Book] = bookList.collectFirst {
+    case book if book.id == bookId => bookList.remove(book)
+  }
 }
