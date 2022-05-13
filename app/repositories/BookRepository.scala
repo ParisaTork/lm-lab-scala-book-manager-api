@@ -40,7 +40,11 @@ class BookRepository {
     }
   }
 
-  def deleteBook(bookId: Long): Option[Book] = bookList.collectFirst {
-    case book if book.id == bookId => bookList.remove(book)
+  def deleteBook(bookId: Long): Option[Book] = {
+    val bookToDelete = bookList.collectFirst {
+      case book if book.id == bookId => book
+    }
+    bookToDelete.foreach(book => bookList.remove(book))
+    bookToDelete
   }
 }
